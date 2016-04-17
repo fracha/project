@@ -19,9 +19,12 @@ includeSourceDocuments()
 Code:
 ```{r}
 <<<<<<< HEAD
+<<<<<<< HEAD
 Universitytable <- read.csv(file="2014-university-system.csv", header=TRUE)
 Communitytable <- read.csv(file="2014-community-colleges.csv", header=TRUE)
 =======
+=======
+>>>>>>> master
 Universitytable <- read.csv(file="/Users/name/Desktop/2014university.csv", header=TRUE)
 Communitytable <- read.csv(file="/Users/name/Desktop/2014community.csv", header=TRUE)
 >>>>>>> master
