@@ -1,6 +1,6 @@
 ---
 title: "final project"
-author: ""
+author: "."
 date: ""
 output: 
   html_document:
