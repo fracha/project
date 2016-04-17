@@ -1,6 +1,6 @@
 ---
 title: "final project"
-author: ""
+author: "Omar Buenrosto, Franklin Chan, Stephen Hsu"
 date: ""
 output: 
   html_document:
