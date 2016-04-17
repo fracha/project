@@ -1,7 +1,7 @@
 ---
 title: "final project"
 author: "Omar Buenrosto, Franklin Chan, Stephen Hsu"
-date: ""
+date: "aaaa"
 output: 
   html_document:
     fig_height: 3
@@ -18,16 +18,8 @@ includeSourceDocuments()
 
 Code:
 ```{r}
-<<<<<<< HEAD
-<<<<<<< HEAD
 Universitytable <- read.csv(file="2014-university-system.csv", header=TRUE)
 Communitytable <- read.csv(file="2014-community-colleges.csv", header=TRUE)
-=======
-=======
->>>>>>> master
-Universitytable <- read.csv(file="/Users/name/Desktop/2014university.csv", header=TRUE)
-Communitytable <- read.csv(file="/Users/name/Desktop/2014community.csv", header=TRUE)
->>>>>>> master
 new_names <- c("Name", "Title","Base","Overtime", "Other", "Benefits", "Total", "TotBen", "Year", "Notes", "Agency", "Status")
 names(Universitytable) <- new_names
 names(Communitytable) <- new_names
