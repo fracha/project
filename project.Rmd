@@ -1,0 +1,99 @@
+---
+title: "final project"
+author: "pew"
+date: ""
+output: 
+  html_document:
+    fig_height: 3
+    fig_width: 5
+---
+<!-- Don't edit in between this line and the one below -->
+```{r include=FALSE}
+# Don't delete this chunk if you are using the DataComputing package
+library(DataComputing)
+library(XML)
+library(RCurl)
+```
+*Source file* 
+```{r, results='asis', echo=FALSE}
+includeSourceDocuments()
+```
+<!-- Don't edit the material above this line -->
+
+Code:
+```{r}
+Universitytable <- read.csv(file="2014-university-system.csv", header=TRUE)
+Communitytable <- read.csv(file="2014-community-colleges.csv", header=TRUE)
+new_names <- c("Name", "Title","Base","Overtime", "Other", "Benefits", "Total", "TotBen", "Year", "Notes", "Agency", "Status")
+names(Universitytable) <- new_names
+names(Communitytable) <- new_names
+Universitytable <- Universitytable %>%
+      select(Name, Title, Base, Other, Benefits, Total, TotBen, Year, Agency)
+Universitytable <- as.data.frame(sapply(Universitytable, toupper))
+
+#do you want this? otherwise have issues with middlenames
+Universitytable$Name <- gsub("\\.","",Universitytable$Name)
+###
+
+Communitytable <- Communitytable %>%
+      select(Name, Title, Base, Other, Benefits, Total, TotBen, Year, Agency)
+Communitytable <- as.data.frame(sapply(Communitytable, toupper))
+
+#do you want this?
+Communitytable$Name <- gsub("\\.","",Communitytable$Name)
+###
+```
+
+Get University Members Names
+```{r}
+#A global concern: some people have middle names on faculty websites but not in the table, and (probably) vice versa.
+
+#rename f later
+f <- function(nodes,node=TRUE){
+  if(node) toupper(gsub("^ *(.*[^ ]) *$","\\1",gsub("\\.","",sapply(nodes,xmlValue)))) else toupper(gsub("^ *(.*[^ ]) *$","\\1",gsub("\\.","",nodes)))
+}
+
+docstat_Berk <- htmlParse('http://statistics.berkeley.edu/people/faculty')
+#root <- xmlRoot(docstat_Berk)
+name_nodes <- getNodeSet(docstat_Berk, '//div[@class="views-field views-field-title"]')
+name_vector_Berk <- f(name_nodes)
+name_vector_Berk
+
+docstat_la <- htmlParse('http://directory.stat.ucla.edu/visiting_faculty')
+#root <- xmlRoot(docstat_la)
+name_nodes <- getNodeSet(docstat_la, '//div[@class="entity"]/a')
+name_vector_la <- f(name_nodes)
+name_vector_la
+#don't know what to do with "firstname (nickname?) lastname"
+
+docstat_sd <- htmlParse(getURL('https://math.ucsd.edu/research/statistics/'))
+#IMPORTANT, for some reason htmlParse('https://math.ucsd.edu/research/statistics/') fails, I used RCurl package's getURL function as a workaround (credit: stackexchange)
+#root <- xmlRoot(docstat_sd)
+name_nodes<- getNodeSet(docstat_sd, '//span[@class="b18"]')
+name_vector_sd <- f(name_nodes)
+name_vector_sd
+# don't know what to do with "RONGHUI \"LILY\" XU"
+
+docstat_dav <- htmlParse('http://www.stat.ucdavis.edu/people/faculty.html')
+name_nodes<- getNodeSet(docstat_dav, '//td/h1')
+name_vector_dav <- f(name_nodes)
+name_vector_dav
+
+docstat_irv <- htmlParse('http://www.stat.uci.edu/faculty/')
+name_nodes<- getNodeSet(docstat_irv, '//td/b')
+name_vector_irv <- f(name_nodes)
+name_vector_irv
+
+docstat_sb <- htmlParse('http://www.pstat.ucsb.edu/faculty.htm')
+name_nodes<- getNodeSet(docstat_sb, '//div[@class="style12"]')
+name_vector_sb1 <- sapply(name_nodes, xmlValue)
+name_nodes<- getNodeSet(docstat_sb, '//span[@class="style12"]')
+name_vector_sb2 <- sapply(name_nodes, xmlValue)
+name_vector_sb <- f(c(name_vector_sb1,name_vector_sb2),node=FALSE)
+name_vector_sb <- gsub(",.+","",name_vector_sb) #get ride of ,chair and ,vice chair
+name_vector_sb
+```
+
+
+
+
