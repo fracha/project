@@ -86,7 +86,7 @@ name_vector_sb1 <- sapply(name_nodes, xmlValue)
 name_nodes<- getNodeSet(docstat_sb, '//span[@class="style12"]')
 name_vector_sb2 <- sapply(name_nodes, xmlValue)
 name_vector_sb <- formatnames(c(name_vector_sb1,name_vector_sb2),node=FALSE)
-name_vector_sb <- gsub(",.+","",name_vector_sb) #get ride of ,chair and ,vice chair
+name_vector_sb <- gsub(",.+","",name_vector_sb) #get rid of ,chair and ,vice chair
 name_vector_sb
 ```
 
