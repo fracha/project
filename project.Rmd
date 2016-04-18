@@ -2,7 +2,6 @@
 title: "final project"
 author: "Omar Buenrosto, Franklin Chan, Stephen Hsu"
 date: ""
-franklin
 output: 
   html_document:
     fig_height: 3
